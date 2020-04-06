@@ -241,6 +241,7 @@ static bool audioProcessing(void *clientdata, float **inputBuffers, unsigned int
 -(void)setSong: (NSString*) input{
     const char* input_c = [input cStringUsingEncoding:NSUTF8StringEncoding];
     input_global_var = [input cStringUsingEncoding:NSUTF8StringEncoding];
+    [audioIO start];
     player->open(input_c);
     printf("error code: %d for song %s",player->getOpenErrorCode(),[input cStringUsingEncoding:NSUTF8StringEncoding]);
 }
