@@ -63,6 +63,7 @@ class ViewController: UIViewController {
                 self?.btnPlay.setTitle("play", for: .normal)
             }
         }
+        //note: I just only want to make player play a song not from Bundle path
         let initFileCreation = SetNewDir()
         initFileCreation.setFile(fileName: "track1.mp3", url: "\(Bundle.main.path(forResource: "track", ofType:"mp3")!)")
         initFileCreation.setFile(fileName: "track2.mp3", url: "\(Bundle.main.path(forResource: "track", ofType:"mp3")!)")
