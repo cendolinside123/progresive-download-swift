@@ -167,6 +167,11 @@ class MusicPlayer:NSObject{
         playerState = .ended
     }
     
+    func seek(_ value:Float){
+        let convertToMs = value * 1000
+        player.seek(to_Ms: Double(convertToMs))
+    }
+    
     fileprivate func didPlayerStateChange() {
             switch playerState {
             case .buffering:

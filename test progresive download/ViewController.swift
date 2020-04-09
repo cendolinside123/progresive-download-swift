@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     
     private var bufferIndicator:UIView?
     
+    private var duration:Float = 0
+    
     @IBOutlet weak var songProgress: UISlider!
     @IBOutlet weak var songName: UILabel!
     @IBOutlet weak var songArtist: UILabel!
@@ -46,6 +48,8 @@ class ViewController: UIViewController {
         
         setPlayer.updateSlider = { [weak self] (current,duration) in
             let progressValue = current / duration
+            
+            self?.duration = duration
             
             self?.progressTime.text = current.timeFormat
             
@@ -149,6 +153,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func seek_a_song(_ sender: UISlider) {
+        let value = sender.value * duration
+        setPlayer.seek(value)
     }
 }
 
