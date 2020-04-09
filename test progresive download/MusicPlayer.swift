@@ -18,6 +18,8 @@ class MusicPlayer:NSObject{
     
     var updateSlider : ((Float,Float) -> ())?
     
+    var updateBuffer: ((Float,Float) -> ())?
+    
     var updateState: ((PlayerState) -> ())?
     
     var indexListOfSonglistener: ((Int) -> ())?
@@ -208,6 +210,7 @@ extension MusicPlayer:SuperpowerDelegate{
             return
         }
         updateSlider?(progressSong,Float(player.getDurationS()))
+        updateBuffer?(player.getBufferedStart_inPercent(),player.getBufferedEnd_inPercent())
         mediaCommandCenter.updatePlayback(currentProgress: Float(player.getPositionSecond()), expectedDuration: Float(player.getDurationS()))
     }
     

@@ -18,6 +18,10 @@ class ViewController: UIViewController {
     
     var collectionOfSong = [SongInfo]()
     
+    private var sliderThumbWidth:CGFloat?
+    
+    private var bufferIndicator:UIView?
+    
     @IBOutlet weak var songProgress: UISlider!
     @IBOutlet weak var songName: UILabel!
     @IBOutlet weak var songArtist: UILabel!
@@ -30,6 +34,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        sliderThumbWidth = songProgress.thumbRect(forBounds: songProgress.bounds, trackRect: songProgress.trackRect(forBounds: songProgress.bounds), value: 0).size.width
+        
+        bufferIndicator = UIView(frame: CGRect.zero)
+        bufferIndicator?.backgroundColor = UIColor.lightGray
+        guard let bufferView = bufferIndicator else{
+            return
+        }
+        self.view.insertSubview(bufferView, belowSubview: songProgress)
+        
         setPlayer.updateSlider = { [weak self] (current,duration) in
             let progressValue = current / duration
             
@@ -37,6 +51,27 @@ class ViewController: UIViewController {
             
             self?.durationTime.text = duration.timeFormat
             self?.songProgress.setValue(progressValue, animated: true)
+        }
+        
+        setPlayer.updateBuffer = { [weak self] buffer_start,buffer_end in
+            var frame = self?.songProgress.frame
+            guard let sliderThumbWidth = self?.sliderThumbWidth else {
+                return
+            }
+            frame?.size.width -= sliderThumbWidth
+            
+            guard let width = frame?.size.width else {
+                return
+            }
+            
+            frame?.origin.x += (CGFloat(buffer_start) * width) + (sliderThumbWidth * 0.5)
+            frame?.size.width = (CGFloat(buffer_end) - CGFloat(buffer_start)) * width
+            
+            guard let frameValue = frame else {
+                return
+            }
+            
+            self?.bufferIndicator?.frame = frameValue
         }
         
         setPlayer.updateState = { [weak self] playerState in
@@ -113,6 +148,8 @@ class ViewController: UIViewController {
         setPlayer.backwardQueue()
     }
     
+    @IBAction func seek_a_song(_ sender: UISlider) {
+    }
 }
 
 extension ViewController:UITableViewDelegate,UITableViewDataSource{

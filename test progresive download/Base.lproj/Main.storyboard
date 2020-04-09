@@ -20,6 +20,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="oER-oS-8Wh"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="seek_a_song:" destination="BYZ-38-t0r" eventType="valueChanged" id="fd9-B1-XKU"/>
+                                </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBO-aG-e05">
                                 <rect key="frame" x="143" y="117" width="89" height="21"/>

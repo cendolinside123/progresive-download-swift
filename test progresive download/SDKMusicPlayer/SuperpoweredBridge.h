@@ -54,4 +54,5 @@ typedef NS_ENUM(int, SuperPoweredStatePlayer){
 -(float) getBufferedEnd_inPercent;
 -(bool) isPlaying;
 -(bool) isWaitingForBuffering;
+-(float) getBufferedStart_inPercent;
 @end

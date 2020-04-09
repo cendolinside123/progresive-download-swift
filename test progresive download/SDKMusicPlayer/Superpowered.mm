@@ -93,6 +93,8 @@ static bool audioProcessing(void *clientdata, float **inputBuffers, unsigned int
         eventPlayer event = (eventPlayer) strongSelf->player->getLatestEvent();
         switch (event) {
             case PlayerEvent_Opened:
+                [strongSelf->audioIO start];
+                strongSelf->player->playSynchronized();
                 //player->play();
                 printf("\n superpowered PlayerEvent_Opened \n");
                 break;
@@ -335,6 +337,10 @@ static bool audioProcessing(void *clientdata, float **inputBuffers, unsigned int
 
 -(float) getBufferedEnd_inPercent{
     return player->getBufferedEndPercent();
+}
+
+-(float) getBufferedStart_inPercent{
+    return player->getBufferedStartPercent();
 }
 
 @end
